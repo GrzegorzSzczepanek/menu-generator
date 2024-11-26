@@ -11,6 +11,13 @@ export default {
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
+        transparent: "transparent",
+        current: "currentColor",
+        white: "#ffffff",
+        border: "#D0D5DD",
+        "font-dark": "#101827",
+        "font-bright": "#475466",
+        addBtn: "#7D5AD3",
       },
     },
   },
