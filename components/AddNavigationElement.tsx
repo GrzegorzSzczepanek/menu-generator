@@ -10,6 +10,10 @@ b. Walidacja pól (np. wymaganie wypełnienia pola label).
 
 import { useForm } from "react-hook-form";
 import { FormButton } from "./Buttons/FormButton";
+import { Input } from "./inputs/Input";
+import { Search } from "lucide-react";
+import { InputWithLabel } from "./inputs/InputWithLabel";
+import { OptionButtonGrid } from "./Buttons/OptionButtonGrid";
 
 type NavigationElement = {
   label: string;
@@ -37,23 +41,26 @@ export const AddNavigationElement = ({
   return (
     <form onSubmit={handleSubmit(submitHandler)}>
       <div>
-        <label htmlFor="label">Label</label>
-        <input
-          id="label"
-          {...register("label", { required: "Label is required" })}
+        <InputWithLabel
+          type="Text"
+          placeholder="np. Promocje"
+          label="Nazwa"
+          inputId="name-input"
         />
-        {errors.label && <span>{errors.label.message}</span>}
-      </div>
-      <div>
-        <label htmlFor="url">URL</label>
-        <input id="url" {...register("url")} />
-      </div>
-      <div className="flex space-x-2">
+
+        <InputWithLabel
+          startIcon={Search}
+          type="Text"
+          placeholder="Wklej, lub wyszukaj"
+          label="Link"
+          inputId="url-input"
+        />
+
         <FormButton
           isSubmit={false}
           label="Anuluj"
           onClick={() => {
-            alert("xd");
+            alert("xd1");
           }}
         />
         <FormButton
@@ -63,6 +70,7 @@ export const AddNavigationElement = ({
             alert("xd2");
           }}
         />
+        <OptionButtonGrid />
       </div>
     </form>
   );
