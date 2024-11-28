@@ -17,7 +17,7 @@ export const AddButton: React.FC<AddButtonProps> = ({
 }) => {
   return (
     <button
-      className="bg-purple-600 flex items-center p-3 rounded-md text-white font-semibold justify-center"
+      className="bg-purple-600 flex items-center p-3 rounded-custom-rounded text-white font-semibold justify-center"
       onClick={onClick}
     >
       {icon && <span className="">{icon}</span>}

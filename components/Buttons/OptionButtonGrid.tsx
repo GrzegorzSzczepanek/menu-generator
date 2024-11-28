@@ -1,29 +1,33 @@
 import React from "react";
 import { FormButton } from "./FormButton";
+import { AddButton } from "./AddButton";
 
 export const OptionButtonGrid = () => {
   return (
-    <div className="flex bg-black">
+    <div className="flex">
       <FormButton
-        label={""}
+        label="Left"
         isSubmit={false}
-        onClick={function (): void {
-          throw new Error("Function not implemented.");
+        onClick={() => {
+          alert("xd");
         }}
+        borderRadiusType="left"
       />
       <FormButton
-        label={""}
+        label="Middle"
         isSubmit={false}
-        onClick={function (): void {
-          throw new Error("Function not implemented.");
+        onClick={() => {
+          alert("xd");
         }}
+        borderRadiusType="middle"
       />
       <FormButton
-        label={""}
+        label="Right"
         isSubmit={false}
-        onClick={function (): void {
-          throw new Error("Function not implemented.");
+        onClick={() => {
+          alert("xd");
         }}
+        borderRadiusType="right"
       />
     </div>
   );

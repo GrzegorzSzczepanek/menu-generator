@@ -10,6 +10,7 @@ export interface InputWithLabelProps
   label?: string;
   placeholder?: string;
   inputId?: string;
+  optional?: boolean;
 }
 
 /**
@@ -56,6 +57,7 @@ const InputWithLabel = React.forwardRef<HTMLInputElement, InputWithLabelProps>(
       label,
       placeholder,
       inputId,
+      optional = true,
       ...props
     },
     ref
@@ -65,9 +67,9 @@ const InputWithLabel = React.forwardRef<HTMLInputElement, InputWithLabelProps>(
     const Label = label;
     const Placeholder = placeholder;
     const InputId = inputId;
-
+    const Optional = optional;
     return (
-      <div>
+      <div className="w-full">
         {Label && (
           <label htmlFor={InputId ? InputId : undefined}>{Label}</label>
         )}
@@ -78,6 +80,7 @@ const InputWithLabel = React.forwardRef<HTMLInputElement, InputWithLabelProps>(
           placeholder={Placeholder}
           {...props}
           ref={ref}
+          optional={Optional}
         />
       </div>
     );

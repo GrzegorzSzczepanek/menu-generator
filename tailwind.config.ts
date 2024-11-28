@@ -21,6 +21,9 @@ export default {
         "font-bright": "#475466",
         addBtn: "#7D5AD3",
       },
+      borderRadius: {
+        "custom-rounded": "var(--border-radius)",
+      },
     },
   },
   plugins: [],
