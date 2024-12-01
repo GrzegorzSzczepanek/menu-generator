@@ -12,6 +12,23 @@ interface MenuItemProps {
   listeners: any;
 }
 
+/**
+ * MenuItem component renders a menu item with options to add a child or edit the item.
+ * The additional containers for adding or editing are displayed at the bottom.
+ *
+ * @component
+ * @example
+ * return (
+ *   <MenuItem item={item} dispatch={dispatch} attributes={attributes} listeners={listeners} />
+ * )
+ *
+ * @param {MenuItemProps} props - The props for the MenuItem component.
+ * @param {MenuItemType} props.item - The menu item data.
+ * @param {React.Dispatch<any>} props.dispatch - The dispatch function for state management.
+ * @param {any} props.attributes - The attributes for drag-and-drop functionality.
+ * @param {any} props.listeners - The listeners for drag-and-drop functionality.
+ * @returns {JSX.Element} A React component that displays a menu item.
+ */
 export const MenuItem: React.FC<MenuItemProps> = ({
   item,
   dispatch,
@@ -45,23 +62,29 @@ export const MenuItem: React.FC<MenuItemProps> = ({
   };
 
   return (
-    <div className="flex items-center justify-between p-3 rounded-custom-rounded bg-white border mb-2">
-      <div className="flex items-center gap-2">
-        <div {...attributes} {...listeners} className="cursor-move">
-          <Move />
+    <div className="flex flex-col rounded-custom-rounded bg-white border mb-2">
+      <div className="flex items-center justify-between p-3">
+        <div className="flex items-center gap-2">
+          <div
+            {...attributes}
+            {...listeners}
+            className="cursor-move text-button-tertiary-fg"
+          >
+            <Move />
+          </div>
+          <div>
+            <h3 className="font-medium">{item.label}</h3>
+            <p className="text-sm text-gray-500">{item.url}</p>
+          </div>
         </div>
-        <div>
-          <h3 className="font-medium">{item.label}</h3>
-          <p className="text-sm text-gray-500">{item.url}</p>
-        </div>
+        <OptionButtonGrid
+          onEdit={() => setIsEditing(true)}
+          onAddSubItem={() => setIsAddingChild(true)}
+          onDelete={handleDeleteItem}
+        />
       </div>
-      <OptionButtonGrid
-        onEdit={() => setIsEditing(true)}
-        onAddSubItem={() => setIsAddingChild(true)}
-        onDelete={handleDeleteItem}
-      />
       {isAddingChild && (
-        <div className="mt-2">
+        <div className="mt-2 p-3">
           <AddNavigationElement
             onSubmit={handleAddChild}
             onCancel={() => setIsAddingChild(false)}
@@ -70,7 +93,7 @@ export const MenuItem: React.FC<MenuItemProps> = ({
         </div>
       )}
       {isEditing && (
-        <div className="mt-2">
+        <div className="mt-2 p-3">
           <EditNavigationElement
             item={item}
             onSubmit={handleUpdateItem}

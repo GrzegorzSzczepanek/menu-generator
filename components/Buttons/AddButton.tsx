@@ -18,8 +18,8 @@ export const AddButton: React.FC<AddButtonProps> = ({
 }) => {
   return (
     <button
-      className={`bg-purple-600 flex items-center p-3 rounded-custom-rounded text-white font-semibold justify-center ${
-        styleType === "secondary" ? "bg-gray-500" : ""
+      className={`bg-button-primary-bg flex items-center p-3 rounded-custom-rounded text-white font-semibold justify-center ${
+        styleType === "secondary" ? "bg-button-secondary-bg" : ""
       }`}
       onClick={onClick}
     >

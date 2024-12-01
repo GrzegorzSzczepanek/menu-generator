@@ -32,6 +32,7 @@ export const TreeItem: React.FC<TreeItemProps> = ({
     transform: CSS.Transform.toString(transform),
     transition,
     paddingLeft: `${depth * 20}px`, // Indentation for child items
+    width: "100%",
   };
 
   return (

@@ -28,7 +28,7 @@ export const AddNavigationElement = ({
   };
 
   return (
-    <div className="flex border border-border rounded-custom-rounded gap-8 p-8 w-full">
+    <div className="flex border border-border-primary rounded-custom-rounded gap-8 p-8 w-full">
       <form onSubmit={handleSubmit(submitHandler)} className="w-full">
         <div className="flex flex-col gap-3">
           <InputWithLabel
