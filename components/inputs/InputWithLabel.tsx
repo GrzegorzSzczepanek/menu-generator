@@ -1,6 +1,5 @@
-import { combineClassNames } from "@/lib/utils/combineClassNames";
-import { LucideIcon } from "lucide-react";
 import React from "react";
+import { LucideIcon } from "lucide-react";
 import { Input } from "@components/inputs/Input";
 
 export interface InputWithLabelProps
@@ -12,40 +11,6 @@ export interface InputWithLabelProps
   inputId?: string;
   optional?: boolean;
 }
-
-/**
- * `InputWithLabel` is a React component that renders an input field with an associated label.
- * It supports optional start and end icons, as well as a placeholder.
- *
- * @component
- * @param {InputWithLabelProps} props - The properties for the input component.
- * @param {string} [props.className] - Additional class names for styling.
- * @param {string} [props.type] - The type of the input element.
- * @param {React.ElementType} [props.startIcon] - An optional icon to display at the start of the input.
- * @param {React.ElementType} [props.endIcon] - An optional icon to display at the end of the input.
- * @param {string} [props.label] - The label text associated with the input.
- * @param {string} [props.placeholder] - The placeholder text for the input.
- * @param {string} [props.inputId] - The id attribute for the input element.
- * @param {React.Ref<HTMLInputElement>} ref - The ref to be forwarded to the input element.
- * @returns {JSX.Element} The rendered input with label component.
- *
- * @example
- * ```tsx
- * import { InputWithLabel } from './components/inputs/InputWithLabel';
- * import { SearchIcon } from 'lucide-react';
- *
- * function App() {
- *   return (
- *     <InputWithLabel
- *       label="Search"
- *       placeholder="Type to search..."
- *       startIcon={SearchIcon}
- *       inputId="search-input"
- *     />
- *   );
- * }
- * ```
- */
 
 const InputWithLabel = React.forwardRef<HTMLInputElement, InputWithLabelProps>(
   (
@@ -64,23 +29,21 @@ const InputWithLabel = React.forwardRef<HTMLInputElement, InputWithLabelProps>(
   ) => {
     const StartIcon = startIcon;
     const EndIcon = endIcon;
-    const Label = label;
-    const Placeholder = placeholder;
-    const InputId = inputId;
-    const Optional = optional;
     return (
       <div className="w-full">
-        {Label && (
-          <label htmlFor={InputId ? InputId : undefined}>{Label}</label>
+        {label && (
+          <label htmlFor={inputId} className="block mb-1 font-medium">
+            {label} {!optional && <span className="text-red-500">*</span>}
+          </label>
         )}
         <Input
-          id={InputId ? InputId : undefined}
+          id={inputId}
           startIcon={StartIcon}
           endIcon={EndIcon}
-          placeholder={Placeholder}
+          placeholder={placeholder}
           {...props}
           ref={ref}
-          optional={Optional}
+          optional={optional}
         />
       </div>
     );

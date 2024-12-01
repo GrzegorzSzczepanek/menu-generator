@@ -1,58 +1,83 @@
+import React, { useState } from "react";
+import { MenuItemType } from "@/types/menu";
 import { Move } from "lucide-react";
-import React from "react";
-import { OptionButtonGrid } from "../Buttons/OptionButtonGrid";
+import { OptionButtonGrid } from "@components/Buttons/OptionButtonGrid";
+import { AddNavigationElement } from "./AddNavigationElement";
+import { EditNavigationElement } from "./EditNavigationElement";
 
 interface MenuItemProps {
-  name: string;
-  url: string;
-  borderRadiusType?: "none" | "upper" | "bottom-left";
+  item: MenuItemType;
+  dispatch: React.Dispatch<any>;
+  attributes: any;
+  listeners: any;
 }
 
-/**
- * MenuItem component renders a menu item with a name, URL, and optional border radius styles.
- * The border radius can be customized to be none, only upper corners, or only bottom left corner.
- *
- * @component
- * @example
- * return (
- *   <MenuItem name="Promocje" url="http://localhost:3000/" borderRadiusType="upper" />
- * )
- *
- * @param {MenuItemProps} props - The props for the MenuItem component.
- * @param {string} props.name - The name of the menu item.
- * @param {string} props.url - The URL of the menu item.
- * @param {"none" | "upper" | "bottom-left"} [props.borderRadiusType="none"] - The type of border radius to apply.
- * @returns {JSX.Element} A React component that displays a menu item.
- */
-
 export const MenuItem: React.FC<MenuItemProps> = ({
-  name = "Promocje",
-  url = "http://localhost:3000/",
-  borderRadiusType = "none",
+  item,
+  dispatch,
+  attributes,
+  listeners,
 }) => {
-  const getBorderRadiusClass = () => {
-    switch (borderRadiusType) {
-      case "upper":
-        return "rounded-t-custom-rounded";
-      case "bottom-left":
-        return "rounded-bl-custom-rounded";
-      default:
-        return "rounded-none";
-    }
+  const [isAddingChild, setIsAddingChild] = useState(false);
+  const [isEditing, setIsEditing] = useState(false);
+
+  const handleAddChild = (data: any, parentId?: string) => {
+    const newChild: MenuItemType = {
+      id: Date.now().toString(),
+      label: data.label,
+      url: data.url,
+      children: [],
+    };
+    dispatch({
+      type: "ADD_CHILD",
+      payload: { parentId: item.id, child: newChild },
+    });
+    setIsAddingChild(false);
+  };
+
+  const handleUpdateItem = (data: any) => {
+    dispatch({ type: "UPDATE_ITEM", payload: { id: item.id, data } });
+    setIsEditing(false);
+  };
+
+  const handleDeleteItem = () => {
+    dispatch({ type: "DELETE_ITEM", payload: { id: item.id } });
   };
 
   return (
-    <div
-      className={`flex bg-slate-400 w-11/12 items-center justify-between p-3 ${getBorderRadiusClass()}`}
-    >
-      <div className="flex items-center gap-2 px-5">
-        <Move />
+    <div className="flex items-center justify-between p-3 rounded-custom-rounded bg-white border mb-2">
+      <div className="flex items-center gap-2">
+        <div {...attributes} {...listeners} className="cursor-move">
+          <Move />
+        </div>
         <div>
-          <h3>{name}</h3>
-          <p>{url}</p>
+          <h3 className="font-medium">{item.label}</h3>
+          <p className="text-sm text-gray-500">{item.url}</p>
         </div>
       </div>
-      <OptionButtonGrid />
+      <OptionButtonGrid
+        onEdit={() => setIsEditing(true)}
+        onAddSubItem={() => setIsAddingChild(true)}
+        onDelete={handleDeleteItem}
+      />
+      {isAddingChild && (
+        <div className="mt-2">
+          <AddNavigationElement
+            onSubmit={handleAddChild}
+            onCancel={() => setIsAddingChild(false)}
+            parentId={item.id}
+          />
+        </div>
+      )}
+      {isEditing && (
+        <div className="mt-2">
+          <EditNavigationElement
+            item={item}
+            onSubmit={handleUpdateItem}
+            onCancel={() => setIsEditing(false)}
+          />
+        </div>
+      )}
     </div>
   );
 };

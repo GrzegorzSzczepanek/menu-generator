@@ -17,27 +17,25 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
   ) => {
     const StartIcon = startIcon;
     const EndIcon = endIcon;
-    const InputId = inputId;
-    const Optional = optional;
 
     return (
       <div className="w-full relative">
         {StartIcon && (
-          <div className="absolute left-1.5 top-1/2 transform -translate-y-1/2">
+          <div className="absolute left-3 top-1/2 transform -translate-y-1/2">
             <StartIcon size={18} className="text-muted-foreground" />
           </div>
         )}
         <input
           type={type}
           className={combineClassNames(
-            "flex h-10 w-full rounded-custom-rounded border border-input bg-background py-2 px-4 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring focus-visible:ring-offset-0 disabled:cursor-not-allowed disabled:opacity-50",
-            startIcon ? "pl-8" : "",
-            endIcon ? "pr-8" : "",
+            "flex h-10 w-full rounded-custom-rounded border border-input bg-background py-2 px-4 text-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring",
+            startIcon ? "pl-10" : "",
+            endIcon ? "pr-10" : "",
             className ?? ""
           )}
           ref={ref}
           {...props}
-          {...(InputId ? { id: InputId } : {})}
+          id={inputId}
         />
         {EndIcon && (
           <div className="absolute right-3 top-1/2 transform -translate-y-1/2">

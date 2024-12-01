@@ -1,7 +1,8 @@
 import { useForm, SubmitHandler } from "react-hook-form";
-import { FormButton } from "../Buttons/FormButton";
-import { Search, Trash, Trash2 } from "lucide-react";
-import { InputWithLabel } from "../inputs/InputWithLabel";
+import { FormButton } from "@components/Buttons/FormButton";
+import { Search, Trash2 } from "lucide-react";
+import { InputWithLabel } from "@components/inputs/InputWithLabel";
+import { MenuItemType } from "@/types/menu";
 
 type NavigationElement = {
   label: string;
@@ -10,40 +11,43 @@ type NavigationElement = {
 
 export const AddNavigationElement = ({
   onSubmit,
+  onCancel,
+  parentId,
 }: {
-  onSubmit: (data: NavigationElement) => void;
+  onSubmit: (data: NavigationElement, parentId?: string) => void;
+  onCancel?: () => void;
+  parentId?: string;
 }) => {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-    reset,
-  } = useForm<NavigationElement>();
+  const { register, handleSubmit, formState, reset } =
+    useForm<NavigationElement>();
+  const { errors } = formState;
 
   const submitHandler: SubmitHandler<NavigationElement> = (data) => {
-    onSubmit(data);
+    onSubmit(data, parentId);
     reset();
   };
 
   return (
-    <div className="flex border border-border p- rounded-custom-rounded gap-8 p-8 w-11/12">
+    <div className="flex border border-border rounded-custom-rounded gap-8 p-8 w-full">
       <form onSubmit={handleSubmit(submitHandler)} className="w-full">
         <div className="flex flex-col gap-3">
           <InputWithLabel
             type="text"
-            placeholder="np. Promocje"
-            label="Nazwa"
+            placeholder="e.g., Promotions"
+            label="Name"
             inputId="name-input"
             optional={false}
-            {...register("label", { required: "Nazwa jest wymagana" })}
+            {...register("label", { required: "Name is required" })}
           />
-          {errors.label && <span>{errors.label.message}</span>}
+          {errors.label && (
+            <span className="text-red-500">{errors.label.message}</span>
+          )}
 
           <InputWithLabel
             startIcon={Search}
             type="text"
-            placeholder="Wklej, lub wyszukaj"
-            label="Link"
+            placeholder="Paste or search"
+            label="URL"
             inputId="url-input"
             optional={true}
             {...register("url")}
@@ -52,12 +56,13 @@ export const AddNavigationElement = ({
           <div className="flex space-x-2">
             <FormButton
               isSubmit={false}
-              label="Anuluj"
+              label="Cancel"
               onClick={() => {
                 reset();
+                onCancel && onCancel();
               }}
             />
-            <FormButton isSubmit={true} label="Dodaj" />
+            <FormButton isSubmit={true} label="Add" />
           </div>
         </div>
       </form>

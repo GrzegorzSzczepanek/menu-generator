@@ -1,32 +1,35 @@
 import React from "react";
 import { FormButton } from "./FormButton";
-import { AddButton } from "./AddButton";
 
-export const OptionButtonGrid = () => {
+interface OptionButtonGridProps {
+  onEdit: () => void;
+  onAddSubItem: () => void;
+  onDelete: () => void;
+}
+
+export const OptionButtonGrid: React.FC<OptionButtonGridProps> = ({
+  onEdit,
+  onAddSubItem,
+  onDelete,
+}) => {
   return (
     <div className="flex">
       <FormButton
-        label="Left"
+        label="Edit"
         isSubmit={false}
-        onClick={() => {
-          alert("xd");
-        }}
+        onClick={onEdit}
         borderRadiusType="left"
       />
       <FormButton
-        label="Middle"
+        label="Add Sub-Item"
         isSubmit={false}
-        onClick={() => {
-          alert("xd");
-        }}
+        onClick={onAddSubItem}
         borderRadiusType="middle"
       />
       <FormButton
-        label="Right"
+        label="Delete"
         isSubmit={false}
-        onClick={() => {
-          alert("xd");
-        }}
+        onClick={onDelete}
         borderRadiusType="right"
       />
     </div>

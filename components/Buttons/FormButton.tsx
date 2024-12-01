@@ -2,29 +2,16 @@ import React from "react";
 
 interface FormButtonProps {
   label: string;
-  isSubmit: boolean; // false if it's going to be a cancel button
+  isSubmit: boolean;
   onClick?: () => void;
-  borderRadiusType?: "left" | "middle" | "right" | "default"; // New prop to determine border radius type
+  borderRadiusType?: "left" | "middle" | "right" | "default";
 }
 
-/**
- * FormButton component renders a button that can be either a submit or cancel button
- * based on the isSubmit prop. It also applies different border radius styles based on the borderRadiusType prop.
- *
- * @component
- * @example
- * return (
- *   <FormButton label="Submit" isSubmit={true} onClick={handleSubmit} borderRadiusType="left" />
- * )
- *
- * @param {FormButtonProps} props - The props for the FormButton component.
- * @returns {JSX.Element} A React component that displays a button.
- */
 export const FormButton: React.FC<FormButtonProps> = ({
   label,
   isSubmit,
   onClick,
-  borderRadiusType = "default", // Default to "default" if not provided
+  borderRadiusType = "default",
 }) => {
   const getBorderRadiusClass = () => {
     switch (borderRadiusType) {
@@ -44,7 +31,11 @@ export const FormButton: React.FC<FormButtonProps> = ({
     : `px-4 py-2 border border-gray-300 text-gray-700 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-300 ${getBorderRadiusClass()}`;
 
   return (
-    <button className={buttonClass} onClick={onClick}>
+    <button
+      className={buttonClass}
+      onClick={onClick}
+      type={isSubmit ? "submit" : "button"}
+    >
       {label}
     </button>
   );
