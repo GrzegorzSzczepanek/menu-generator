@@ -129,7 +129,6 @@ export default function Home() {
         <>
           <Menu menuData={state.menuData} dispatch={dispatch} />
           <div className="w-full bg-bg-secondary rounded-bl-custom-rounded rounded-br-custom-rounded p-3 border border-t-border-primary">
-            {/* Show AddNavigationElement when showAddForm is true */}
             {showAddForm && (
               <AddNavigationElement
                 onSubmit={handleAddItem}
