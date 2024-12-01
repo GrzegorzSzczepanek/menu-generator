@@ -57,11 +57,19 @@ export const TreeItem: React.FC<TreeItemProps> = ({
       },
     });
 
+  const calculatePadding = (depth: number) => {
+    if (depth === 0) {
+      return 0;
+    }
+    const basePadding = 60;
+    // we calculate it that way to aviod padding overlapping from the previous element so we don't get sum of previous ones.
+    return `${depth * basePadding - (depth - 1) * basePadding}px`;
+  };
+
   const style = {
     transform: CSS.Transform.toString(transform),
     transition,
-    paddingLeft: `${depth * 20}px`, // Indentation for child items
-    width: "100%",
+    paddingLeft: calculatePadding(depth),
   };
 
   const getBorderRadiusPrefix = (
@@ -85,7 +93,7 @@ export const TreeItem: React.FC<TreeItemProps> = ({
     <div
       ref={setNodeRef}
       style={style}
-      className="bg-bg-secondary rounded-t-custom-rounded"
+      className="bg-bg-secondary rounded-t-custom-rounded w-full"
     >
       <MenuItem
         item={item}

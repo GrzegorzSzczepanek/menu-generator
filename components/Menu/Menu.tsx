@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { MenuItemType } from "@/types/menu";
 import {
   DndContext,
@@ -38,9 +38,8 @@ interface CustomDragOverlayProps {
  *
  * @param {CustomDragOverlayProps} props - The props for the CustomDragOverlay component.
  * @param {MenuItemType} props.item - The menu item data.
- * @returns {TSX.Element} A React component that displays a custom drag overlay.
+ * @returns {JSX.Element} A React component that displays a custom drag overlay.
  */
-
 export const CustomDragOverlay: React.FC<CustomDragOverlayProps> = ({
   item,
 }) => {
@@ -53,26 +52,33 @@ export const CustomDragOverlay: React.FC<CustomDragOverlayProps> = ({
 };
 
 /**
- * CustomDragOverlay component renders a custom overlay for the item being dragged.
+ * Menu component renders a sortable menu with drag-and-drop functionality.
+ * It uses `@dnd-kit` for drag-and-drop handling and supports nested menu items.
  *
  * @component
  * @example
  * return (
- *   <CustomDragOverlay item={item} />
+ *   <Menu menuData={menuData} dispatch={dispatch} />
  * )
  *
- * @param {CustomDragOverlayProps} props - The props for the CustomDragOverlay component.
- * @param {MenuItemType} props.item - The menu item data.
- * @returns {JSX.Element} A React component that displays a custom drag overlay.
+ * @param {MenuProps} props - The props for the Menu component.
+ * @param {MenuItemType[]} props.menuData - The array of menu items.
+ * @param {React.Dispatch<any>} props.dispatch - The dispatch function for state management.
+ * @returns {JSX.Element} A React component that displays a sortable menu.
  */
-
 export const Menu: React.FC<MenuProps> = ({ menuData, dispatch }) => {
   const sensors = useSensors(useSensor(PointerSensor));
+  const [activeId, setActiveId] = useState<string | null>(null);
 
   const flattenedItems = flattenTree(menuData);
 
+  const handleDragStart = ({ active }: any) => {
+    setActiveId(active.id);
+  };
+
   const handleDragEnd = (event: DragEndEvent) => {
     const { active, over } = event;
+    setActiveId(null);
 
     if (over && active.id !== over.id) {
       const oldIndex = flattenedItems.findIndex(
@@ -88,10 +94,13 @@ export const Menu: React.FC<MenuProps> = ({ menuData, dispatch }) => {
     }
   };
 
+  const activeItem = flattenedItems.find((item) => item.id === activeId);
+
   return (
     <DndContext
       sensors={sensors}
       collisionDetection={closestCenter}
+      onDragStart={handleDragStart}
       onDragEnd={handleDragEnd}
     >
       <SortableContext
@@ -109,7 +118,13 @@ export const Menu: React.FC<MenuProps> = ({ menuData, dispatch }) => {
           />
         ))}
       </SortableContext>
-      <DragOverlay></DragOverlay>
+      <DragOverlay>
+        {activeItem ? (
+          <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center pointer-events-none">
+            <CustomDragOverlay item={activeItem} />
+          </div>
+        ) : null}
+      </DragOverlay>
     </DndContext>
   );
 };

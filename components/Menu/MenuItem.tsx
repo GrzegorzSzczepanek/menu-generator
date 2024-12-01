@@ -87,28 +87,32 @@ export const MenuItem: React.FC<MenuItemProps> = ({
   };
 
   return (
-    <div className={`flex flex-col bg-white border ${getBorderRadiusClass()}`}>
-      <div className="flex items-center justify-between p-3">
-        <div className="flex items-center gap-2">
-          <div
-            {...attributes}
-            {...listeners}
-            className="cursor-move text-button-tertiary-fg"
-          >
-            <Move />
+    <>
+      <div
+        className={`flex flex-col bg-white border ${getBorderRadiusClass()} `}
+      >
+        <div className="flex items-center justify-between p-3">
+          <div className="flex items-center gap-2">
+            <div
+              {...attributes}
+              {...listeners}
+              className="cursor-move text-button-tertiary-fg"
+            >
+              <Move />
+            </div>
+            <div>
+              <h3 className="font-medium">{item.label}</h3>
+              <a className="text-sm text-gray-500" href={item.url}>
+                {item.url}
+              </a>
+            </div>
           </div>
-          <div>
-            <h3 className="font-medium">{item.label}</h3>
-            <a className="text-sm text-gray-500" href={item.url}>
-              {item.url}
-            </a>
-          </div>
+          <OptionButtonGrid
+            onEdit={() => setIsEditing(true)}
+            onAddSubItem={() => setIsAddingChild(true)}
+            onDelete={handleDeleteItem}
+          />
         </div>
-        <OptionButtonGrid
-          onEdit={() => setIsEditing(true)}
-          onAddSubItem={() => setIsAddingChild(true)}
-          onDelete={handleDeleteItem}
-        />
       </div>
       {isAddingChild && (
         <div className="mt-2 p-3">
@@ -128,6 +132,6 @@ export const MenuItem: React.FC<MenuItemProps> = ({
           />
         </div>
       )}
-    </div>
+    </>
   );
 };

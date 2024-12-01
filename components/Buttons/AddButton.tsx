@@ -41,9 +41,9 @@ export const AddButton: React.FC<AddButtonProps> = ({
 }) => {
   return (
     <button
-      className={`flex items-center p-2 rounded-custom-rounded font-semibold justify-center ${
+      className={`flex items-center p-2 rounded-custom-rounded font-semibold justify-center border border-2 ${
         styleType === "secondary"
-          ? "bg-button-secondary-bg text-text-tertiary"
+          ? "bg-button-secondary-bg text-text-tertiary border-button-secondary-border"
           : styleType === "danger"
           ? "bg-button-danger-bg text-text-danger"
           : "bg-button-primary-bg text-white"

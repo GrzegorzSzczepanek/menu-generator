@@ -51,7 +51,7 @@ export const EditNavigationElement = ({
   };
 
   return (
-    <div className="flex flex-col border border-border rounded-custom-rounded gap-4 p-4 w-full">
+    <div className="flex flex-col border border-border bg-bg-primary rounded-custom-rounded gap-4 p-4 w-full">
       <form onSubmit={handleSubmit(submitHandler)} className="w-full">
         <InputWithLabel
           type="text"

@@ -22,7 +22,7 @@ export default {
         "text-primary": "#101828",
         "text-secondary": "#344054",
         "text-tertiary": "#475467",
-        "button-secondary-border": "D0D5DD",
+        "button-secondary-border": "#D0D5DD",
         "button-secondary-color-fg": "#6941C6",
         "border-primary": "#D0D5DD",
         "button-secondary-color-border": "#D6BBFB",
