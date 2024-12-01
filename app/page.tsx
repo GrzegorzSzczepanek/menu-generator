@@ -83,7 +83,6 @@ export default function Home() {
   const [state, dispatch] = useReducer(reducer, initialState);
   const [showAddForm, setShowAddForm] = useState(false);
 
-  // Load from localStorage on mount
   useEffect(() => {
     const savedMenu = localStorage.getItem("menuData");
     if (savedMenu) {
@@ -91,7 +90,6 @@ export default function Home() {
     }
   }, []);
 
-  // Save to localStorage when menuData changes
   useEffect(() => {
     localStorage.setItem("menuData", JSON.stringify(state.menuData));
   }, [state.menuData]);
@@ -108,24 +106,26 @@ export default function Home() {
   };
 
   return (
-    <div className="grid items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
+    <div className="rid items-center justify-center min-h-screen p-6 bg-gray-50 sm:p-16">
       {state.menuData.length === 0 ? (
         <EmptyMenu onAdd={() => setShowAddForm(true)} />
       ) : (
         <>
           <Menu menuData={state.menuData} dispatch={dispatch} />
-          <AddButton
-            label="Add Menu Item"
-            onClick={() => setShowAddForm(true)}
-            styleType="primary"
-          />
+          <div className="w-full bg-bg-secondary rounded-bl-custom-rounded rounded-br-custom-rounded p-3 border border-t-border-primary">
+            {showAddForm && (
+              <AddNavigationElement
+                onSubmit={handleAddItem}
+                onCancel={() => setShowAddForm(false)}
+              />
+            )}
+            <AddButton
+              label="Dodaj pozycję menu"
+              onClick={() => setShowAddForm(true)}
+              styleType="secondary"
+            />
+          </div>
         </>
-      )}
-      {showAddForm && (
-        <AddNavigationElement
-          onSubmit={handleAddItem}
-          onCancel={() => setShowAddForm(false)}
-        />
       )}
     </div>
   );
