@@ -29,9 +29,12 @@ const initialState: State = {
 const reducer = (state: State, action: Action): State => {
   switch (action.type) {
     case "SET_MENU":
+      console.log("SET_MENU", action.payload);
       return { ...state, menuData: action.payload };
     case "ADD_ITEM":
+      console.log("ADD_ITEM", action.payload);
       return { ...state, menuData: [...state.menuData, action.payload] };
+
     case "ADD_CHILD":
       const addChild = (items: MenuItemType[]): MenuItemType[] => {
         return items.map((item) => {
@@ -108,11 +111,25 @@ export default function Home() {
   return (
     <div className="rid items-center justify-center min-h-screen p-6 bg-gray-50 sm:p-16">
       {state.menuData.length === 0 ? (
-        <EmptyMenu onAdd={() => setShowAddForm(true)} />
+        <>
+          {/* Show EmptyMenu when menuData is empty */}
+          <EmptyMenu onAdd={() => setShowAddForm(true)} />
+
+          {/* Show AddNavigationElement when showAddForm is true */}
+          {showAddForm && (
+            <div className="w-full mt-4">
+              <AddNavigationElement
+                onSubmit={handleAddItem}
+                onCancel={() => setShowAddForm(false)}
+              />
+            </div>
+          )}
+        </>
       ) : (
         <>
           <Menu menuData={state.menuData} dispatch={dispatch} />
           <div className="w-full bg-bg-secondary rounded-bl-custom-rounded rounded-br-custom-rounded p-3 border border-t-border-primary">
+            {/* Show AddNavigationElement when showAddForm is true */}
             {showAddForm && (
               <AddNavigationElement
                 onSubmit={handleAddItem}
