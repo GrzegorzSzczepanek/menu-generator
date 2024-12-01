@@ -10,6 +10,32 @@ export interface InputProps
   optional?: boolean;
 }
 
+/**
+ * Input component renders an input field with optional start and end icons.
+ * It supports additional props for customization.
+ *
+ * @component
+ * @example
+ * return (
+ *   <Input
+ *     type="text"
+ *     placeholder="Enter text"
+ *     startIcon={SearchIcon}
+ *     inputId="input-id"
+ *   />
+ * )
+ *
+ * @param {InputProps} props - The props for the Input component.
+ * @param {string} [props.className] - Additional class names for styling.
+ * @param {string} [props.type] - The type of the input element.
+ * @param {React.ElementType} [props.startIcon] - An optional icon to display at the start of the input.
+ * @param {React.ElementType} [props.endIcon] - An optional icon to display at the end of the input.
+ * @param {string} [props.inputId] - The id attribute for the input element.
+ * @param {boolean} [props.optional=true] - Whether the input is optional.
+ * @param {React.Ref<HTMLInputElement>} ref - The ref to be forwarded to the input element.
+ * @returns {JSX.Element} The rendered input component.
+ */
+
 const Input = React.forwardRef<HTMLInputElement, InputProps>(
   (
     { className, type, startIcon, endIcon, inputId, optional = true, ...props },

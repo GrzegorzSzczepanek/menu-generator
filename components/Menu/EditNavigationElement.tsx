@@ -8,6 +8,27 @@ type FormValues = {
   url?: string;
 };
 
+/**
+ * EditNavigationElement component renders a form for editing an existing navigation element.
+ * It uses `react-hook-form` for form handling and validation.
+ *
+ * @component
+ * @example
+ * return (
+ *   <EditNavigationElement
+ *     item={item}
+ *     onSubmit={(data) => console.log(data)}
+ *     onCancel={() => console.log("Cancel clicked")}
+ *   />
+ * )
+ *
+ * @param {EditNavigationElementProps} props - The props for the EditNavigationElement component.
+ * @param {MenuItemType} props.item - The menu item data to be edited.
+ * @param {(data: NavigationElement) => void} props.onSubmit - The function to call when the form is submitted.
+ * @param {() => void} props.onCancel - The function to call when the cancel button is clicked.
+ * @returns {JSX.Element} A React component that displays a form for editing an existing navigation element.
+ */
+
 export const EditNavigationElement = ({
   item,
   onSubmit,
@@ -47,7 +68,7 @@ export const EditNavigationElement = ({
         <InputWithLabel
           type="text"
           placeholder="Paste or search"
-          label="URL"
+          label="Link"
           inputId="url-input"
           optional={true}
           {...register("url")}
