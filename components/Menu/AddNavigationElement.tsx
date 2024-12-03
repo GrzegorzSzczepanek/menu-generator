@@ -2,7 +2,6 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import { FormButton } from "@components/Buttons/FormButton";
 import { Search, Trash2 } from "lucide-react";
 import { InputWithLabel } from "@components/inputs/InputWithLabel";
-import { MenuItemType } from "@/types/menu";
 
 type NavigationElement = {
   label: string;

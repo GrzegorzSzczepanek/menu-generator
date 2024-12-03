@@ -18,7 +18,7 @@ import {
 } from "@dnd-kit/sortable";
 
 import { flattenTree, buildTree } from "@/lib/utils/treeUtils";
-import { TreeItem } from "./TreeItem";
+import { TreeItem } from "@components/Menu/TreeItem";
 
 interface MenuProps {
   menuData: MenuItemType[];
@@ -122,7 +122,7 @@ export const Menu: React.FC<MenuProps> = ({ menuData, dispatch }) => {
       </SortableContext>
       <DragOverlay>
         {activeItem ? (
-          <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center pointer-events-none">
+          <div className="fixed top-0 left-0 w-full h-full flex items-center border border-border-primary justify-center pointer-events-none">
             <CustomDragOverlay item={activeItem} />
           </div>
         ) : null}

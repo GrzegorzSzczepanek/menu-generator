@@ -12,7 +12,15 @@ interface MenuItemProps {
   dispatch: React.Dispatch<any>;
   attributes: any;
   listeners: any;
-  borderRadiusPrefix: "first" | "last" | "nested" | "nested-last" | "default";
+  borderRadiusPrefix:
+    | "first"
+    | "last"
+    | "nested"
+    | "nested-first"
+    | "nested-last"
+    | "only"
+    | "first-with-children"
+    | "default";
 }
 
 /**
@@ -76,15 +84,23 @@ export const MenuItem: React.FC<MenuItemProps> = ({
   const getBorderRadiusClass = () => {
     switch (borderRadiusPrefix) {
       case "first":
-        return "rounded-t-custom-rounded rounded-b-none";
+        return "rounded-t-lg rounded-b-none";
+      case "first-with-children":
+        return "rounded-bl-lg rounded-tl-lg rounded-tr-lg rounded-br-none";
       case "last":
+        return "rounded-none border-b";
+      case "only":
+        return "rounded-lg";
+      case "default":
         return "rounded-none";
       case "nested":
+        return "rounded-bl-lg rounded-tl-lg rounded-tr-lg rounded-br-none";
+      case "nested-first":
         return "rounded-none";
       case "nested-last":
-        return "rounded-bl-custom-rounded";
+        return "rounded-bl-lg";
       default:
-        return "rounded-custom-rounded";
+        return "rounded-none";
     }
   };
 

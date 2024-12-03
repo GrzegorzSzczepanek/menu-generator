@@ -75,19 +75,28 @@ export const TreeItem: React.FC<TreeItemProps> = ({
   const getBorderRadiusPrefix = (
     index: number,
     length: number,
-    depth: number
+    depth: number,
+    item: MenuItemType
   ) => {
+    const hasChildren = item.children && item.children.length > 0;
+
     if (depth === 0) {
-      if (index === 0) return "first";
+      if (hasChildren && index !== 0) return "nested-last";
+      if (hasChildren && index === 0) return "first-with-children";
       if (index === length - 1) return "last";
+      if (index === 0 && length === 1) return "only";
+      if (index === 0) return "first";
+
       return "default";
     } else {
-      if (index === length - 1) return "nested-last";
+      if (index === length - 1 && !hasChildren) return "nested-last";
+      if (hasChildren) return "nested-last";
+      if (index === 0) return "nested-first";
       return "nested";
     }
   };
 
-  const borderRadiusPrefix = getBorderRadiusPrefix(index, length, depth);
+  const borderRadiusPrefix = getBorderRadiusPrefix(index, length, depth, item);
 
   return (
     <div
