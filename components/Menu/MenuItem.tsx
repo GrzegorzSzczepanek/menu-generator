@@ -20,7 +20,8 @@ interface MenuItemProps {
     | "nested-last"
     | "only"
     | "first-with-children"
-    | "default";
+    | "default"
+    | "nested-only";
 }
 
 /**
@@ -94,10 +95,12 @@ export const MenuItem: React.FC<MenuItemProps> = ({
       case "default":
         return "rounded-none";
       case "nested":
-        return "rounded-bl-lg rounded-tl-lg rounded-tr-lg rounded-br-none";
+        return "rounded-none";
       case "nested-first":
         return "rounded-none";
       case "nested-last":
+        return "rounded-bl-lg";
+      case "nested-only":
         return "rounded-bl-lg";
       default:
         return "rounded-none";

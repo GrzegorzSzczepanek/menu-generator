@@ -29,10 +29,8 @@ const initialState: State = {
 const reducer = (state: State, action: Action): State => {
   switch (action.type) {
     case "SET_MENU":
-      console.log("SET_MENU", action.payload);
       return { ...state, menuData: action.payload };
     case "ADD_ITEM":
-      console.log("ADD_ITEM", action.payload);
       return { ...state, menuData: [...state.menuData, action.payload] };
 
     case "ADD_CHILD":

@@ -83,15 +83,14 @@ export const TreeItem: React.FC<TreeItemProps> = ({
     if (depth === 0) {
       if (hasChildren && index !== 0) return "nested-last";
       if (hasChildren && index === 0) return "first-with-children";
-      if (index === length - 1) return "last";
-      if (index === 0 && length === 1) return "only";
       if (index === 0) return "first";
-
+      if (index === length - 1) return "last";
       return "default";
     } else {
-      if (index === length - 1 && !hasChildren) return "nested-last";
-      if (hasChildren) return "nested-last";
+      if (length === 1) return "nested-only";
       if (index === 0) return "nested-first";
+      if (index === length - 1 || hasChildren) return "nested-last";
+      if (index !== 0 && index !== length - 1 && !hasChildren) return "default";
       return "nested";
     }
   };
