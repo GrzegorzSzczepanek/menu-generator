@@ -2,7 +2,7 @@ import React from "react";
 import { MenuItemType } from "@/types/menu";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
-import { MenuItem } from "./MenuItem";
+import { MenuItem } from "@components/Menu/MenuItem";
 import {
   SortableContext,
   verticalListSortingStrategy,
